@@ -1,10 +1,3 @@
-library(fdasrvf)
-library(reshape2)
-library(ggplot2)
-library(future)
-library(future.apply)
-
-
 ##### Shapes / curves in R2
 srsf = function(f) {
   f_to_srvf(f, seq(0, 1, length.out = length(f)))

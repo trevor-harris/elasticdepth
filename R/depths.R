@@ -1,4 +1,8 @@
-# R1 depth
+#' Computes the amplitude and phase depths of the R1 trajectories in \code{fmat}
+#' @param fmat Matrix of trajectories in R1. Each column is a function.
+#'
+#' @return amplitude and phase depths in a list
+#'
 #' @export
 depth.R1 = function(fmat) {
   # save the dimensions for convenience
@@ -30,11 +34,16 @@ depth.R1 = function(fmat) {
 }
 
 
-# R2 depth
+#' Computes the amplitude and phase depths of the R2 trajectories in \code{tmat}
+#' @param tmat Array of trajectories in R2. First axis is the X, Y coordinates. Second axis
+#' is the trajectory value, third axis indexes the trajetories.
+#'
+#' @return amplitude and phase depths in a list
+#'
 #' @export
-depth.R2 = function(curves) {
+depth.R2 = function(tmat) {
   
-  fns = dim(curves)[3]
+  fns = dim(tmat)[3]
   
   amp_dist = matrix(0, fns, fns)
   phs_dist = matrix(0, fns, fns)
@@ -42,7 +51,7 @@ depth.R2 = function(curves) {
   for (f in 1:(fns-1)) {
     
     dist = future_sapply(f:fns, function(y) {
-      unlist(elastic.distance.r2(curves[,,f], curves[,,y])) 
+      unlist(elastic.distance.r2(tmat[,,f], tmat[,,y])) 
     })
     
     amp_dist[f, f:fns] = dist[2,]
@@ -58,18 +67,25 @@ depth.R2 = function(curves) {
   return(list(amplitude = amp, phase = phase))
 }
 
-# S2 depth
+#' Computes the amplitude and phase depths of the S2 trajectories in \code{tmat}
+#' @param tmat Array of trajectories in S2. First axis is the X, Y, Z coordinates. Second axis
+#' is the trajectory value, third axis indexes the trajetories.
+#'
+#' @note 3D euclidean coordinates are automatically converted to spherical coordinates.
+#'
+#' @return amplitude and phase depths in a list
+#'
 #' @export
-depth.S2 = function(curves) {
+depth.S2 = function(tmat) {
   
-  fns = dim(curves)[3]
+  fns = dim(tmat)[3]
   
   amp_dist = matrix(0, fns, fns)
   phs_dist = matrix(0, fns, fns)
   
   for (f in 1:(fns-1)) {
     dist = future_sapply(f:fns, function(y) {
-      unlist(elastic.distance.s2(curves[,,f], curves[,,y])) 
+      unlist(elastic.distance.s2(tmat[,,f], tmat[,,y])) 
     })
     
     phs_dist[f, f:fns] = dist[1,]
