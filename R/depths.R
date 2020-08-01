@@ -1,4 +1,4 @@
-#' Computes the amplitude and phase depths of the R1 trajectories in \code{fmat}
+#' Amplitude and phase depths for R1 valued trajectories
 #' @param fmat Matrix of trajectories in R1. Each column is a function.
 #'
 #' @return amplitude and phase depths in a list
@@ -34,7 +34,7 @@ depth.R1 = function(fmat) {
 }
 
 
-#' Computes the amplitude and phase depths of the R2 trajectories in \code{tmat}
+#' Amplitude and phase depths for R2 valued trajectories
 #' @param tmat Array of trajectories in R2. First axis is the X, Y coordinates. Second axis
 #' is the trajectory value, third axis indexes the trajetories.
 #'
@@ -67,9 +67,9 @@ depth.R2 = function(tmat) {
   return(list(amplitude = amp, phase = phase))
 }
 
-#' Computes the amplitude and phase depths of the S2 trajectories in \code{tmat}
+#' Amplitude and phase depths for S2 valued trajectories
 #' @param tmat Array of trajectories in S2. First axis is the X, Y, Z coordinates. Second axis
-#' is the trajectory value, third axis indexes the trajetories.
+#' is the trajectory values, third axis indexes the trajetories.
 #'
 #' @note 3D euclidean coordinates are automatically converted to spherical coordinates.
 #'
